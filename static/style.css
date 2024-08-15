@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Crop Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @font-face {
+            font-family: "GrapeNutsRegular";
+            src: url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.eot");
+            src: url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.eot?#iefix")format("embedded-opentype"),
+            url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.woff") format("woff"),
+            url("/static/fonts/GrapeNuts/GrapeNutsRegular/GrapeNutsRegular.ttf") format("truetype");
+            font-style: normal;
+            font-weight: normal;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(185, 180, 167);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .logo img {
+            width: 70px;
+            height: auto;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            animation: slideIn 1s ease-out;
+        }
+
+        .detail {
+            text-align: center;
+            margin: 50px 0 30px 0;
+            font-family: "GrapeNutsRegular";
+            font-size: 3rem;
+            color: #333;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .image-section {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: center;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .image-section img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .image-section img:hover {
+            transform: scale(1.05);
+        }
+
+        .form-section {
+            background-color: rgb(113, 167, 209);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .form-card {
+            margin-bottom: 20px;
+        }
+
+        .form-section h2 {
+            margin-bottom: 20px;
+            font-family: "GrapeNutsRegular";
+            font-size: 2rem;
+        }
+
+        .form-section label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-section input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: rgb(174, 186, 164);
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section input:focus {
+            background-color: #f0f8ff;
+            border-color: #007bff;
+        }
+
+        .form-section button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section button:hover {
+            background-color: rgb(215, 201, 163);
+            color: black;
+        }
+
+        .details-card {
+            background-color: rgb(174, 186, 164);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            animation: fadeIn 1s ease-out;
+            font-family: "GrapeNutsRegular";
+            font-size: 1.5rem;
+        }
+
+        .details-card h3 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .translate-button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .translate-button:hover {
+            background-color: rgb(209, 189, 140);
+            color: black;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .image-section, .form-section {
+                max-width: 100%;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">
+        <img src="/static/wheat_11682491.png" alt="Crops Logo">
+    </div>
+
+    <div class="detail">
+        <h1>Farming Crop Prediction</h1>
+    </div>
+
+    <div class="container">
+        <div class="image-section">
+            <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="Illustration" class="illustration" />
+        </div>
+
+        <div class="form-section">
+            <div class="form-card">
+                <h2>Enter Details</h2>
+                <form action="/get_result" method="post">
+                    <label for="N">N (नाइट्रोजन):</label>
+                    <input type="text" id="N" name="N" placeholder="Enter Nitrogen value" required>
+
+                    <label for="P">P (फॉस्फोरस):</label>
+                    <input type="text" id="P" name="P" placeholder="Enter Phosphorus value" required>
+
+                    <label for="K">K (पोटैशियम):</label>
+                    <input type="text" id="K" name="K" placeholder="Enter Potassium value" required>
+
+                    <label for="temperature">Temperature (तापमान):</label>
+                    <input type="text" id="temperature" name="temperature" placeholder="Enter Temperature value" required>
+
+                    <label for="humidity">Humidity (आर्द्रता):</label>
+                    <input type="text" id="humidity" name="humidity" placeholder="Enter Humidity value" required>
+
+                    <label for="ph">pH (पीएच मान):</label>
+                    <input type="text" id="ph" name="ph" placeholder="Enter pH value" required>
+
+                    <label for="rainfall">Rainfall (वर्षा):</label>
+                    <input type="text" id="rainfall" name="rainfall" placeholder="Enter Rainfall value" required>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-card">
+        <h3 id="details-title">How to Get Your Crop Recommendation</h3>
+        <p id="details-text">
+            To get a recommendation for the best crop to plant, please fill in all the details in the form provided. 
+            Ensure that you enter accurate values for Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, and Rainfall. 
+            Once you have entered the information, click the "Submit" button to receive your crop recommendation.
+        </p>
+        <button class="translate-button" onclick="translateDetails()">Translate to Hindi</button>
+    </div>
+
+    <script>
+        function translateDetails() {
+            const detailsTitle = document.getElementById('details-title');
+            const detailsText = document.getElementById('details-text');
+            if (detailsTitle.innerText === 'How to Get Your Crop Recommendation') {
+                detailsTitle.innerText = 'आपकी फसल की सिफारिश प्राप्त करने के लिए';
+                detailsText.innerText = 'अपनी फसल की सिफारिश प्राप्त करने के लिए कृपया दिए गए फॉर्म में सभी विवरण भरें। सुनिश्चित करें कि आपने नाइट्रोजन, फॉस्फोरस, पोटैशियम, तापमान, आर्द्रता, पीएच, और वर्षा के लिए सटीक मान दर्ज किए हैं। जानकारी भरने के बाद, अपनी फसल की सिफारिश प्राप्त करने के लिए "सबमिट करें" बटन पर क्लिक करें।';
+            } else {
+                detailsTitle.innerText = 'How to Get Your Crop Recommendation';
+                detailsText.innerText = 'To get a recommendation for the best crop to plant, please fill in all the details in the form provided. Ensure that you enter accurate values for Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, and Rainfall. Once you have entered the information, click the "Submit" button to receive your crop recommendation.';
+            }
+        }
+    </script>
+
+</body>
+</html>

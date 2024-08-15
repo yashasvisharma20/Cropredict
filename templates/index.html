@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cropredict</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: #013220;
+            color: white;
+            padding: 10px 0;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar .container .contact-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .contact-info > div {
+            margin-right: 20px;
+        }
+
+        .top-bar .contact-info i {
+            margin-right: 10px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #000;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: white;
+            padding: 15px;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            background-color: #014421;
+            border-radius: 5px;
+        }
+
+        .navbar .search-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .search-box input {
+            border-radius: 5px 0 0 5px;
+            border: none;
+            padding: 5px 10px;
+            outline: none;
+        }
+
+        .navbar .search-box button {
+            border-radius: 0 5px 5px 0;
+            border: none;
+            background-color: #014421;
+            padding: 5px 10px;
+            color: white;
+        }
+
+        /* Carousel Section */
+        .slider_section {
+            margin: 0; /* Remove default margins */
+        }
+
+        .carousel-item {
+            position: relative;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .carousel-caption h1 {
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .carousel-caption span,
+        .carousel-caption p {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .carousel-caption .buynow {
+            border: #fff solid 1px;
+            background: #fff;
+            width: 190px;
+            padding: 8px 0;
+            display: inline-block;
+            font-weight: 500;
+            font-size: 17px;
+            line-height: 30px;
+            color: #000;
+            text-align: center;
+            border-radius: 10px;
+            margin-right: 20px;
+    
+        }
+
+        .carousel-caption .buynow.ggg {
+            background: linear-gradient(135deg, #faf9fc,#faf9fc);
+        }
+
+        .carousel-caption .buynow {
+            background: linear-gradient(135deg,#faf9fc,#faf9fc);
+        }
+
+        .carousel-caption .buynow:hover {
+            border: #052501 solid 1px;
+            background: #052501;
+            color: #fff;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        :focus {
+            outline: 0;
+        }
+
+
+        .details-card {
+            background-color: #f8f9fa; /* Light gray background to blend with the rest of the page */
+            border-radius: 10px; /* Smooth rounded corners */
+            padding: 20px; /* Spacing inside the card */
+            margin: 20px auto; /* Centering the card with some margin */
+            max-width: 600px; /* Limit the width of the card */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            text-align: left; /* Align text to the left */
+        }
+        .details-card h3 {
+            color: #014421; /* Consistent color with your theme */
+            font-size: 1.75rem;
+            margin-bottom: 15px; /* Space between title and text */
+        }
+        .details-card p {
+            color: #333; /* Darker text color for readability */
+            font-size: 1rem;
+            line-height: 1.6; /* Improve readability with line spacing */
+        }
+        
+        .translate-button {
+            background-color: #014421; /* Consistent button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px; /* Space above the button */
+        }
+
+        .translate-button:hover {
+            background-color: #013220; /* Darker shade on hover */
+        }
+
+
+
+        /* Form Section */
+        .form-section {
+            background-color: #EFEFEF;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .form-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #014421;
+        }
+
+        .form-section form {
+            max-width: 600px;
+            margin: auto;
+            text-align: left;
+        }
+
+        .form-section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-section input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-section button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #014421;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-section button:hover {
+            background-color: #013220;
+        }
+
+        /** about **/
+        .about {
+            padding: 90px 0;
+        }
+
+        .about .about_img figure {
+            margin: 0px;
+        }
+        
+        .about .about_box {
+            text-align: left;
+        }
+        
+        .about .about_box h2 {
+            font-weight: 500;
+            font-size: 43px;
+            color: #163f03;
+            line-height: 55px;
+            padding-bottom: 7px;
+            display: block;
+            text-transform: uppercase;
+            padding: 0px 0px 6px 0px;
+            border-bottom: #163f03 solid 1px;
+        }
+        .about .about_box p {
+            font-size: 17px;
+            line-height: 33px;
+            color: #4c4a49;
+            padding: 40px 0px;
+            font-weight: 500;
+        }
+
+        .about .about_box a {
+            color: #fff;
+            font-size: 17px;
+            line-height: 29px;
+            background: #052501;
+            border: #052501 solid 1px;
+            padding: 12px 40px;
+            display: inline-block;
+            width: 231px;
+            text-align: center;
+            border-radius: 18px;
+        }
+
+        .about .about_box a:hover {
+            color: #fff;
+            background: #4bc714;
+            border: #4bc714 solid 1px;
+        }
+        .about_img {margin-top: 25px;}
+        .about_img figure {margin: 0;}
+        .about_img figure img {width: 100%;}
+        /** end about **/
+
+        .clients .titlepage h2 {
+    color: #000;
+}
+
+/** offer **/
+.offer {
+     padding-top: 90px;
+   }
+
+.offer-bg {
+     background: #052501;
+     padding: 90px 0px;
+    
+}
+
+.margin {
+     margin-bottom: 30px;
+}
+
+
+.offer .offer-bg {
+     background: #052501;
+     text-align: center;
+     padding: 60px 0px;
+}
+.offer .offer-bg .offer_box {text-align: center;}
+.offer .offer-bg .offer_box figure {margin: 0;}
+.offer .offer-bg .offer_box figure img {
+    width: 100%;
+}
+.offer .offer-bg .offer_box h3 {
+     font-size: 30px;
+     font-weight: 500;
+     color: #fff;
+    padding-bottom: 30px;
+}
+.offer .offer-bg .offer_box p {padding-top: 35px; font-size: 17px; line-height: 23px; color: #fff;}
+
+.read-more { 
+font-family: poppins;
+max-width: 212px;
+margin: 0 auto;
+margin-top: 0px;
+display: block;
+background: #fff;
+color: #000 !important;
+padding: 12px 0px;
+width: 100%;
+font-size: 17px;
+float: left;
+border-radius: 10px;
+margin-top: -100px;
+}
+
+.read-more:hover {
+     background: #30880d;
+     color: #fff !important;
+}
+
+
+.margin_ttt {margin-top: 100px;}
+.margin-lkk {margin-top: 200px;}
+/** end offer **/
+
+.clients_red {
+    background: #fff;
+    padding-bottom: 50px;
+}
+
+.cross_inner h3 {
+    text-align: left;
+    padding-left: 60px;
+    padding-top: 58px;   
+    font-size: 30px;
+    line-height: 35px;
+    padding-bottom: 58px;
+    text-transform: uppercase;
+}
+
+.pa_right {
+    padding-right: 0px;
+}
+
+.pa_left {
+    padding-left: 0px;
+}
+
+.testimonial-heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.testimonial-heading::after {
+    content: "";
+    display: block;
+    width: 60%;
+    height: 3px;
+    background-color: #4bc714; /* Adjust color as needed */
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+
+.testimonial_cont p {
+    color: #fff;
+    background: #052501;
+    padding: 40px 50px;
+}
+
+#testimonial_slider .carousel-indicators {
+    bottom: -50px;
+}
+
+#testimonial_slider .carousel-indicators li {
+    width: 25px;
+    height: 25px;
+    background-color: #052501;
+    border-radius: 50px;
+}
+
+#testimonial_slider .carousel-indicators li.active {
+    background-color: #4bc714;
+}
+
+.testimonial_cont {
+    background: #fff;
+    min-height: 295px;
+}
+
+.text_align_center {
+    text-align: center;
+}
+
+.ornage_color {
+    color: #4bc714;
+    text-transform: none;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.testomonial_img {
+    position: relative;
+}
+
+.testomonial_img:after {
+    position: absolute;
+    content: "";
+    background: url(/static/bg1.png);
+    background-repeat: no-repeat;
+    width: 61px;
+    height: 61px;
+    right: 0px;
+    bottom: -61px;
+    z-index: 9999;
+}
+
+.testomonial_img i img {
+    border: #4bc714 solid 13px;
+    width: 100%;
+}
+
+.transform {
+    transform: skew(190deg);
+}
+
+.testimonial_cont h3 {
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+}
+    /** contact **/
+    .contact {
+        margin-top: 90px;
+    }
+    .map_section {
+        border-top: #052501 solid 6px;
+    }
+    #map {
+    height: 100%;
+    min-height: 670px;}
+    .padddd {
+        padding: 0px;
+    }
+
+    .main_form {
+        position: absolute;
+        z-index: 990;
+        background: #052501;
+        margin-top: 80px;
+        padding: 60px 40px;
+    }
+    .form-control {
+        border: #fff solid 1px;
+        border-radius: inherit;
+        margin-bottom: 20px;
+        padding: 8px 20px;
+        font-family: poppins;
+    }
+    .form-control:focus {
+        box-shadow: inherit;
+        border: #fff solid 1px !important;
+    }
+    .textarea {
+        font-family: poppins;
+        border: #fff solid 2px;
+        margin-bottom: 20px;
+        padding: 0px 20px;
+        padding-top: 0px;
+        width: 100%;
+        padding-top: 30px;
+    }
+    .send {
+        font-family: poppins;
+        float: left;
+        margin: 0 auto;
+        display: block;
+        background: #fff;
+        color: #000;
+        max-width: 165px;
+        padding: 13px 0px;
+        width: 100%;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+    .send:hover {
+        background: #30880d;
+        color: #fff;
+    }
+
+        /* Footer Section */
+        .footer-section {
+            background-color: #000;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer-section p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .carousel-caption {
+                bottom: 10%;
+                font-size: 1.5rem;
+            }
+
+            .form-section h2 {
+                font-size: 2rem;
+            }
+
+            .form-section form {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="logo">
+                <img src="/static/wheat_11682491.png" alt="Logo" style="width: 70px;">
+            </div>
+            <div class="contact-info">
+                <div>
+                    <i class="fas fa-map-marker-alt"></i> Location
+                </div>
+                <div>
+                    <i class="fas fa-envelope"></i> info@cropredict.com
+                </div>
+                <div>
+                    <i class="fas fa-phone"></i> (+91) 9876543109
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Technology">Technology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Testimonial">Testimonial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="search-box ml-auto">
+                    <input type="text" placeholder="Search">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carousel Section -->
+    <section class="slider_section">
+        <div id="myCarousel" class="carousel slide banner-main" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="first-slide" src="/static/banner.jpg" alt="First slide" style="height: 70vh; width: 100%; object-fit: cover;">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Cropredict</h1>
+                
+                            <p>Your Reliable Crop Prediction Platform</p>
+                            <a class="buynow" href="#about">About us</a>
+                            <a class="buynow ggg" href="#form">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="second-slide" src="/static/banner.jpg" alt="Second slide" style="height: 70vh; width: 100%; object-fit: cover;">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Predict the Best Crop for Your Land</h1>
+                            
+                            <p>Empowering Farmers with AI Technology</p>
+                            <a class="buynow" href="#about">About us</a>
+                            <a class="buynow ggg" href="#form">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="third-slide" src="/static/banner.jpg" alt="Third slide" style="height: 70vh; width: 100%; object-fit: cover;">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Get Your Helping Hand</h1>
+                            
+                            <p>We are here for you</p>
+                            <a class="buynow" href="#about">About us</a>
+                            <a class="buynow ggg" href="#form">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </section>   
+
+    <div class="details-card">
+        <h3 id="details-title">How to Get Your Crop Recommendation</h3>
+        <p id="details-text">
+            To get a recommendation for the best crop to plant, please fill in all the details in the form provided. 
+            Ensure that you enter accurate values for Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, and Rainfall. 
+            Once you have entered the information, click the "Predict Crop" button to receive your crop recommendation.
+        </p>
+        <button class="translate-button" onclick="translateDetails()">Translate to Hindi</button>
+    </div>
+    <script>
+        function translateDetails() {
+            const detailsTitle = document.getElementById('details-title');
+            const detailsText = document.getElementById('details-text');
+            if (detailsTitle.innerText === 'How to Get Your Crop Recommendation') {
+                detailsTitle.innerText = 'आपकी फसल अनुशंसा प्राप्त करने के लिए';
+                detailsText.innerText = 'अपनी फसल अनुशंसा प्राप्त करने के लिए कृपया दिए गए फॉर्म में सभी विवरण भरें। सुनिश्चित करें कि आपने नाइट्रोजन, फॉस्फोरस, पोटैशियम, तापमान, आर्द्रता, पीएच, और वर्षा के लिए सटीक मान दर्ज किए हैं। जानकारी भरने के बाद, अपनी फसल की सिफारिश प्राप्त करने के लिए "क्रॉप प्रिडिक्ट" बटन पर क्लिक करें।';
+            } else {
+                detailsTitle.innerText = 'How to Get Your Crop Recommendation';
+                detailsText.innerText = 'To get a recommendation for the best crop to plant, please fill in all the details in the form provided. Ensure that you enter accurate values for Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, and Rainfall. Once you have entered the information, click the "Submit" button to receive your crop recommendation.';
+            }
+        }
+    </script>
+    
+    <!-- Form Section -->
+    <div id="form" class="form-section">
+        <div class="form-card">
+            <h2>Enter Details</h2>
+            <form action="/get_result" method="post">
+                <label for="N">Nitrogen (नाइट्रोजन):</label>
+                <input type="text" id="N" name="N" placeholder="Enter Nitrogen value" required>
+
+                <label for="P">Phosphorus (फॉस्फोरस):</label>
+                <input type="text" id="P" name="P" placeholder="Enter Phosphorus value" required>
+
+                <label for="K">Potassium (पोटैशियम):</label>
+                <input type="text" id="K" name="K" placeholder="Enter Potassium value" required>
+
+                <label for="temperature">Temperature (तापमान)(°C):</label>
+                <input type="text" id="temperature" name="temperature" placeholder="Enter Temperature value" required>
+
+                <label for="humidity">Humidity (आर्द्रता)(%):</label>
+                <input type="text" id="humidity" name="humidity" placeholder="Enter Humidity value" required>
+
+                <label for="ph">pH (पीएच मान):</label>
+                <input type="text" id="ph" name="ph" placeholder="Enter pH value" required>
+
+                <label for="rainfall">Rainfall (वर्षा)(mm):</label>
+                <input type="text" id="rainfall" name="rainfall" placeholder="Enter Rainfall value" required>
+
+                <button type="submit">Predict Crop</button>
+            </form>
+        </div>
+    </div>
+    <!-- about -->
+    <div id="about" class="about">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xl-5 col-lg-5 col-md-5 co-sm-l2">
+                    <div class="about_box">
+                        <h2>About moon<br><strong class="black"> Farm and company</strong></h2>
+                        <p>dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex</p>
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-7 co-sm-l2">
+                    <div class="about_img">
+                        <figure><img src="/static/about.png" alt="img" /></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- end for_box -->
+    <!-- offer -->
+    <div id="Technology" class="offer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title">
+                        <h2><strong class="black"> Technology</strong></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offer-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 ">
+                        <div class="offer_box">
+                            <h3>Flask</h3>
+                            <figure><img src="/static/flask.jpg" alt="img" /></figure>
+                            <p>Flask is a micro web framework written in Python. It’s classified as a microframework because it doesn’t require specific tools or libraries. .</p>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin_ttt">
+                        <div class="offer_box">
+                            <h3>Scikit Learn</h3>
+                            <figure><img src="/static/Tutorial-Sklearn.jpg" alt="img" /></figure>
+                            <p>Scikit-Learn, also known as sklearn, is a free machine learning library for Python. It provides a wide range of efficient tools for tasks like classification, regression, clustering, and dimensionality reduction</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin-lkk">
+                        <div class="offer_box">
+                            <h3>Python</h3>
+                            <figure><img src="/static/python.jpg" alt="img" /></figure>
+                            <p>Python is an interpreted, object-oriented, and high-level programming language with dynamic semantics. Its high-level built-in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <a class="read-more">See More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end Technology -->
+
+    <!-- Testimonial Section -->
+<section id = "Testimonial" class="clients">
+    <h2 class="testimonial-heading">TESTIMONIAL</h2>
+    <div class="clients_red">
+        <div id="testimonial_slider" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+                <li data-target="#testimonial_slider" data-slide-to="0" class="active"></li>
+                <li data-target="#testimonial_slider" data-slide-to="1"></li>
+                <li data-target="#testimonial_slider" data-slide-to="2"></li>
+            </ul>
+
+            <!-- Testimonial Items -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="testomonial_section">
+                        <div class="full testimonial_cont text_align_center cross_layout">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pa_right">
+                                    <div class="testomonial_img">
+                                        <i><img src="/static/tes.jpg" alt="Testimonial Image 1"/></i>
+                                    </div>
+                                </div>
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 pa_left">
+                                    <div class="cross_inner">
+                                        <h3>John Doe<br><strong class="ornage_color">Farmer, XYZ Farm</strong></h3>
+                                        <p>
+                                            <img src="/static/1.png" alt="#" /> 
+                                            The crop recommendation system suggested the best crops for my farm. It has significantly increased my yield and profitability!
+                                            <img src="/static/2.png" alt="#" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Testimonial Items -->
+                <div class="carousel-item">
+                    <div class="testomonial_section">
+                        <div class="full testimonial_cont text_align_center cross_layout">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pa_right">
+                                    <div class="testomonial_img">
+                                        <i><img src="/static/tes.jpg" alt="Testimonial Image 2"/></i>
+                                    </div>
+                                </div>
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 pa_left">
+                                    <div class="cross_inner">
+                                        <h3>Jane Smith<br><strong class="ornage_color">Owner, ABC Farms</strong></h3>
+                                        <p>
+                                            <img src="/static/1.png" alt="#" />
+                                            This tool is a game-changer! It helped me choose the right crops for different seasons and improved my farm's productivity.
+                                            <img src="/static/2.png" alt="#" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="testomonial_section">
+
+                        <div class="full testimonial_cont text_align_center cross_layout">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pa_right">
+                                    <div class="testomonial_img">
+                                        <i><img src="/static/tes.jpg" alt="Testimonial Image 3"/></i>
+                                    </div>
+                                </div>
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 pa_left">
+                                    <div class="cross_inner">
+                                        <h3>Michael Brown<br><strong class="ornage_color">Agronomist, DEF Agriculture</strong></h3>
+                                        <p>
+                                            <img src="/static/1.png" alt="#" />
+                                            The accuracy of the predictions is outstanding! The recommendations are well-suited to my soil and weather conditions.
+                                            <img src="/static/2.png" alt="#" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="carousel-control-prev" href="#testimonial_slider" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#testimonial_slider" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+</section>
+    <!-- end clients -->
+    <!-- contact -->
+    <div id="contact" class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title">
+                        <h2>Get In <strong class="black"> Touch</strong></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid padddd">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 padddd">
+            <div class="map_section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <form class="main_form" id="contactForm">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <input class="form-control" placeholder="Name" type="text" name="Name">
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <input class="form-control" placeholder="Email" type="text" name="Email">
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <input class="form-control" placeholder="Phone" type="text" name="Phone">
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <button class="send" type="button" onclick="showSubmitMessage()">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+     
+    
+    <!-- Footer Section -->
+    <div class="footer-section">
+        <p>&copy; 2024 Cropredict. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        function showSubmitMessage() {
+            alert("Thank you! Your message has been submitted.");
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
